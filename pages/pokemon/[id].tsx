@@ -116,19 +116,31 @@ export default PokemonDetailPage;
 
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
   const pokemonIndex = [...Array(151)].map((value, index) => `${index + 1}`);
-
+  
   return {
     paths: pokemonIndex.map((id) => ({ params: { id } })),
-    fallback: false,
+    fallback: "blocking",
   };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { id } = params as { id: string };
+  
+  const pokemon =  await getPokemonData(id)
+  
+  if(!pokemon){
+    return {
+      redirect: {
+        destination : '/',
+        permanent: false
+      },
+    }
+  }
 
   return {
     props: {
-      pokemon: await getPokemonData(id),
+      pokemon
     },
+    revalidate: 84000
   };
 };
