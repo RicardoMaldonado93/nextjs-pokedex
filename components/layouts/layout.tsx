@@ -22,7 +22,7 @@ export const Layout: FC<ILayout> = ({
         <meta name="author" content="Ricardo Maldonado" />
         <meta name="description" content={description} />
         <meta name="keywords" content={`${title}, pokemon, pokedex`} />
-        <meta property="og:title" content={`title`} />
+        <meta property="og:title" content={`${title}`} />
         <meta
           property="og:description"
           content={`Information about ${title}`}
